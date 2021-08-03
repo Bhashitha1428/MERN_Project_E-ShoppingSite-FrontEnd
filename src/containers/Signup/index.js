@@ -2,8 +2,22 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import Input from '../../components/UI/Input'
+import {Redirect} from 'react-router-dom'
+import {  useSelector} from 'react-redux'
 
 function Signup() {
+    const token=localStorage.getItem('token');
+
+    const auth=useSelector(state => state.auth)
+//console.log(auth.authenticate)
+    if(auth.authenticate){
+        return <Redirect to={'/'}/>
+    }
+    // if (token) {
+    //     //console.log("Bhashitha");
+    //     return <Redirect to={'/'} />
+    // }
+    
     return (
         <Layout>
             <Container style={{ marginTop: "50px" }}>
@@ -16,7 +30,7 @@ function Signup() {
                                     <Input
                                         label="First Name"
                                         placeholder="First Name"
-                                        value=""
+                                        value="cc"
                                         type='text'
                                         onChanege={() => { }}
 
@@ -26,7 +40,7 @@ function Signup() {
                                     <Input
                                         label="Last Name"
                                         placeholder="Last Name"
-                                        value=""
+                                        value="cc"
                                         type='text'
                                         onChanege={() => { }}
 

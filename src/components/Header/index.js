@@ -2,11 +2,12 @@ import React from 'react'
 import { Navbar, Nav,Container } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 
+
 function Header(props) {
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Container>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{zIndex:1}}>
+                <Container fluid>
                     <NavLink  class="nav-link active"  to='/'>
                     <Navbar.Brand >Admin dashboard</Navbar.Brand>
                     </NavLink>

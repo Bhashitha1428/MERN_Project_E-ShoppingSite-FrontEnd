@@ -1,27 +1,49 @@
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  
 } from "react-router-dom";
+import { isUserLoggedIn } from "./actions";
 import './App.css';
+import PrivateRoute from "./components/HOC/privateRoute";
 import Home from "./containers/Home";
 import Signin from "./containers/Signin";
 import Signup from "./containers/Signup";
+import React, { useEffect } from 'react';
+
+import {useDispatch,useSelector   } from 'react-redux'
 
 
  
 function App() {
+
+const dispatch = useDispatch()
+const auth=useSelector(state => state.auth)
+
+useEffect(() => {
+   if(!auth.authenticate){
+     dispatch(isUserLoggedIn())
+     
+   }
+  
+},[])
+
+
   return (
+    
     <div className="App">
-      <Router>
+    
     <Switch>
-      <Route path="/" exact component={Home}/>
+      
+      <PrivateRoute path="/" exact component={Home}/>
       <Route path="/signin" exact component={Signin}/>
       <Route path="/signup" exact component={Signup}/>
+      
     </Switch>
-    </Router>
+    
+
+    
     </div>
   );
 }

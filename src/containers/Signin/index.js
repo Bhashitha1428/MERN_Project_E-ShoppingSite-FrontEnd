@@ -1,32 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import Input from '../../components/UI/Input'
+import { useDispatch, useSelector } from 'react-redux'
 
-function Signin() {
+import { login } from "../../actions"
+import { Redirect } from 'react-router-dom'
+
+function Signin(props) {
+
+    const [email, setEmail] = useState('bmr123@gmail.com');
+    const [password, setPassword] = useState('123')
+    const dispatch = useDispatch()
+    const auth = useSelector(state => state.auth)
+
+    const userLogin = (e) => {
+
+        e.preventDefault();
+        const user = {
+            email, password
+        }
+        dispatch(login(user))
+
+
+
+    }
+    
+    if (auth.authenticate) {
+        //console.log("Bhashitha");
+        return <Redirect to={'/'} />
+    }
+   //console.log("Bhashitha Ranchagoda")
+
     return (
         <Layout>
             <Container style={{ marginTop: "50px" }}>
 
                 <Row>
                     <Col md={{ span: 6, offset: 3 }}>
-                        <Form>
+                        <Form onSubmit={userLogin}>
                             <Input
                                 label="Email address"
                                 placeholder="Email address"
-                                value=""
-                                type='email'
+                                value={email}
+                                type='text'
                                 errorMessage='Well never share your email with anyone else'
-                                onChanege={() => { }}
+                                onChange={(e) => setEmail(e.target.value)}
 
                             />
 
                             <Input
                                 label="Password"
                                 placeholder="password"
-                                value=""
+                                value={password}
                                 type='password'
-                                onChanege={() => { }}
+                                onChange={(e) => setPassword(e.target.value)}
 
                             />
 
