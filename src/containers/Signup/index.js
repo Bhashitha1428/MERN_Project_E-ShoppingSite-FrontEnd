@@ -1,22 +1,39 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Layout from '../../components/Layout'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import Input from '../../components/UI/Input'
 import {Redirect} from 'react-router-dom'
-import {  useSelector} from 'react-redux'
+import {  useDispatch,useSelector} from 'react-redux'
+import { signup } from '../../actions'
 
 function Signup() {
-    const token=localStorage.getItem('token');
-
+    const [firstName, setfirstName] = useState('aa')
+    const [lastName, setlastName] = useState('bb')
+    const [email, setEmail] = useState('b1@gmail.com')
+    const [password, setpassword] = useState('123')
+    
+    
     const auth=useSelector(state => state.auth)
-//console.log(auth.authenticate)
+    const user=useSelector(state => state.user)
+
+    const dispatch = useDispatch()
+
+
     if(auth.authenticate){
         return <Redirect to={'/'}/>
     }
-    // if (token) {
-    //     //console.log("Bhashitha");
-    //     return <Redirect to={'/'} />
-    // }
+
+    const userRegister=(e)=>{
+     const user={firstName,lastName,email,password}
+     console.log(user)
+
+        e.preventDefault()
+        dispatch(signup(user))
+
+
+    }
+
+    
     
     return (
         <Layout>
@@ -24,15 +41,15 @@ function Signup() {
 
                 <Row>
                     <Col md={{ span: 6, offset: 3 }}>
-                        <Form>
+                        <Form onSubmit={userRegister}> 
                             <Row>
                                 <Col md={6} >
                                     <Input
                                         label="First Name"
                                         placeholder="First Name"
-                                        value="cc"
+                                        value={firstName}
                                         type='text'
-                                        onChanege={() => { }}
+                                        onChange={(e) => { setfirstName(e.target.value)}}
 
                                     />
                                 </Col>
@@ -40,9 +57,9 @@ function Signup() {
                                     <Input
                                         label="Last Name"
                                         placeholder="Last Name"
-                                        value="cc"
+                                        value={lastName}
                                         type='text'
-                                        onChanege={() => { }}
+                                        onChange={(e) => { setlastName(e.target.value)}}
 
                                     />
                                 </Col>
@@ -51,19 +68,19 @@ function Signup() {
                             <Input
                                 label="Email address"
                                 placeholder="Email address"
-                                value=""
+                                value={email}
                                 type='email'
                                 errorMessage='Well never share your email with anyone else'
-                                onChanege={() => { }}
+                                onChange={(e) => { setEmail(e.target.value)}}
 
                             />
 
                             <Input
                                 label="Password"
                                 placeholder="Password"
-                                value=""
+                                value={password}
                                 type='password'
-                                onChanege={() => { }}
+                                onChange={(e) => {setpassword(e.target.value) }}
 
                             />
 

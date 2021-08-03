@@ -32,6 +32,11 @@ export default (state = initState, action) => {
                 authenticate:true,
                 authenticating:false
             }  
+            break; 
+        case authConstant.LOG_OUT:
+            state={
+                ...initState
+            }   
             break;  
     }
 console.log(state)
