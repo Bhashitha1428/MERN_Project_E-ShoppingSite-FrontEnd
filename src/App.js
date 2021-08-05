@@ -13,6 +13,9 @@ import Signup from "./containers/Signup";
 import React, { useEffect } from 'react';
 
 import {useDispatch,useSelector   } from 'react-redux'
+import Order from "./containers/Order";
+import Product from "./containers/Product";
+
 
 
  
@@ -37,6 +40,8 @@ useEffect(() => {
     <Switch>
       
       <PrivateRoute path="/" exact component={Home}/>
+      <PrivateRoute path='/products' component={Product}/>
+      <PrivateRoute path='/orders' component={Order}/>
       <Route path="/signin" exact component={Signin}/>
       <Route path="/signup" exact component={Signup}/>
       
